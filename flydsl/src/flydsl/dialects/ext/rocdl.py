@@ -154,6 +154,54 @@ def mfma_f32_16x16x16bf16_1k(result_type, operands, *, loc=None, ip=None):
     return mfma_f32_16x16x16bf16_1k_op(result_type, operands, loc=loc, ip=ip).result
 
 
+# Explicit register class control: D/C forced to VGPR (ACC_CD=0)
+_ods_mfma_f32_16x16x16bf16_1k_vcd = globals().get("mfma_f32_16x16x16bf16_1k_vcd", None)
+
+
+def mfma_f32_16x16x16bf16_1k_vcd_op(result_type, operands, *, loc=None, ip=None):
+    """MFMA with D/C forced to ArchVGPR (ACC_CD=0). Return op view."""
+    if _ods_mfma_f32_16x16x16bf16_1k_vcd is None:
+        raise AttributeError("ROCDL op not found: mfma_f32_16x16x16bf16_1k_vcd")
+    ops = [_unwrap_mfma_operand(v, loc=loc) for v in operands]
+    return _ods_mfma_f32_16x16x16bf16_1k_vcd(result_type, ops, loc=loc, ip=ip)
+
+
+def mfma_f32_16x16x16bf16_1k_vcd(result_type, operands, *, loc=None, ip=None):
+    """MFMA with D/C forced to ArchVGPR (ACC_CD=0). Return result directly."""
+    return mfma_f32_16x16x16bf16_1k_vcd_op(result_type, operands, loc=loc, ip=ip).result
+
+
+# Force value into AccVGPR register class (identity at value level)
+_ods_to_agpr_v4i32 = globals().get("to_agpr_v4i32", None)
+
+
+def to_agpr_v4i32(src, *, loc=None, ip=None):
+    """Force v4i32 value into AccVGPR register class. Identity at value level."""
+    from . import arith as _arith_ext
+    if _ods_to_agpr_v4i32 is None:
+        raise AttributeError("ROCDL op not found: to_agpr_v4i32")
+    return _ods_to_agpr_v4i32(
+        _arith_ext.unwrap(src).type,
+        _arith_ext.unwrap(src),
+        loc=loc, ip=ip
+    ).result
+
+
+_ods_to_agpr_v4i16 = globals().get("to_agpr_v4i16", None)
+
+
+def to_agpr_v4i16(src, *, loc=None, ip=None):
+    """Force v4i16 value into AccVGPR register class. Identity at value level."""
+    from . import arith as _arith_ext
+    if _ods_to_agpr_v4i16 is None:
+        raise AttributeError("ROCDL op not found: to_agpr_v4i16")
+    return _ods_to_agpr_v4i16(
+        _arith_ext.unwrap(src).type,
+        _arith_ext.unwrap(src),
+        loc=loc, ip=ip
+    ).result
+
+
 def mfma_f32_16x16x32_fp8_fp8_op(result_type, operands, *, loc=None, ip=None):
     """Return the op view (original behavior)."""
     ops = [_unwrap_mfma_operand(v, loc=loc) for v in operands]

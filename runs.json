@@ -1,0 +1,22 @@
+{
+ "schema": 1,
+ "updated": "2026-08-25T10:44:20Z",
+ "repo": "mfkiwl/FlyDSL",
+ "runs": [
+  {
+   "run_id": 32838631840,
+   "pr": null,
+   "commit": "b33938b00ed444f9719805f910f094a4d1858cbf",
+   "branch": "main",
+   "event": "push",
+   "title": "[Kernel] Add opt-in autotuning for Softmax (#1022)",
+   "status": "completed",
+   "conclusion": "failure",
+   "url": "https://github.com/mfkiwl/FlyDSL/actions/runs/32838631840",
+   "created_at": "2026-08-25T10:43:22Z",
+   "updated_at": "2026-08-25T10:44:05Z",
+   "actor": "mfkiwl",
+   "jobs": []
+  }
+ ]
+}
